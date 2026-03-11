@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title> ✦ random gajelas : dhafir & intan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg: #0d0b1a;
+      --card-bg: rgba(15, 12, 30, 0.7);
+      --glass: rgba(255, 240, 255, 0.05);
+      --border: rgba(255, 180, 230, 0.25);
+      --text-utama: #f0eaff;
+      --abu: #bcb0d0;
+      --aksen: #f5a3d2;
+      --aksen2: #a9b6ff;
+      --glow: 0 0 12px #ffb0dd;
+    }
+
+    body {
+      background: #05030f;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: radial-gradient(circle at 30% 40%, #2a1a40 0%, #030113 80%);
+      color: var(--text-utama);
+      padding: 10px;
+    }
+
+    .kotak-besar {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      backdrop-filter: blur(20px);
+      border-radius: 52px;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 2px rgba(255, 170, 230, 0.1);
+      overflow: hidden;
+      padding: 22px 18px;
+    }
+
+    /* layar */
+    .layar {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      transition: 0.25s;
+    }
+
+    .layar.aktif {
+      display: flex;
+    }
+
+    /* judul random */
+    .headline-absurd {
+      text-align: center;
+      font-size: 18px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: rgba(255,180,240,0.2);
+      padding: 10px 14px;
+      border-radius: 100px;
+      border: 1px dashed #ffb0e6;
+      color: #ffcaf0;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #feb3ff, #b1b9ff, #ffcfef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tombol-absurd {
+      background: rgba(255, 200, 255, 0.12);
+      border: 1.5px solid #ffbbe6;
+      border-radius: 60px;
+      padding: 18px 10px;
+      font-weight: 600;
+      font-size: 17px;
+      color: white;
+      backdrop-filter: blur(12px);
+      transition: 0.2s;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .tombol-absurd:hover {
+      background: #ffb3dd30;
+      border-color: #ffc6f0;
+      box-shadow: 0 0 25px #ffb0e4;
+    }
+
+    /* stats */
+    .bar-atas {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.3);
+      border-radius: 40px;
+      padding: 10px 16px;
+      border: 1px solid #443c5f;
+      font-size: 14px;
+    }
+
+    .skor {
+      background: #2e1f3e;
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid #bd89bb;
+    }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      background: #2b1f31;
+      border-radius: 30px;
+      margin: 8px 0 4px;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 10px;
+      background: linear-gradient(90deg, #ffa4da, #b294ff);
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    /* kartu quiz */
+    .kartu-ngawur {
+      background: rgba(10, 5, 20, 0.6);
+      border-radius: 42px;
+      padding: 24px 20px;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .penanda {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #cbadff;
+      margin-bottom: 16px;
+    }
+
+    .pertanyaan-besar {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 20px 0 12px;
+      text-align: center;
+    }
+
+    .sub-gajelas {
+      text-align: center;
+      color: #a28fb9;
+      font-style: italic;
+      margin-bottom: 28px;
+      font-size: 13px;
+    }
+
+    .pilihan {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .opsi {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid #4c3d64;
+      border-radius: 28px;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #f0dcff;
+      text-align: left;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.18s;
+    }
+
+    .opsi:hover {
+      background: #251c33;
+      border-color: #e1adea;
+    }
+
+    .opsi.bener {
+      background: #218358c0;
+      border-color: #9effc3;
+      box-shadow: 0 0 15px #50d996;
+    }
+
+    .opsi.salah {
+      background: #962b5bc0;
+      border-color: #ffa6ce;
+    }
+
+    .opsi.disabled {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .feedback-gajelas {
+      min-height: 65px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 30px;
+      padding: 18px;
+      margin: 20px 0 12px;
+      text-align: center;
+      border: 1px solid #c88acf40;
+      color: #ffd2f7;
+      font-size: 15px;
+    }
+
+    .lanjut-btn {
+      background: linear-gradient(120deg, #a277d6, #e593cf);
+      border: none;
+      border-radius: 40px;
+      padding: 18px;
+      font-weight: 700;
+      font-size: 17px;
+      color: #130c1c;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid #ffe3fc;
+    }
+
+    /* hasil */
+    .hasil-emoji {
+      font-size: 70px;
+      text-align: center;
+      filter: drop-shadow(0 0 16px #fba6d6);
+    }
+
+    .skor-akhir {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(120deg, #ffc7ea, #cdb9ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin: 15px;
+    }
+
+    .pesan-absurd {
+      background: #1f1433;
+      border-radius: 32px;
+      padding: 24px;
+      text-align: center;
+      border: 1px solid #a571b9;
+    }
+
+    /* partikel random */
+    .floating-random {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .float-item {
+      position: absolute;
+      color: #ffa4e9;
+      opacity: 0.15;
+      font-size: 24px;
+      animation: naikTurun 18s infinite linear;
+      user-select: none;
+    }
+    @keyframes naikTurun {
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0.1; }
+      50% { opacity: 0.3; }
+      100% { transform: translateY(-20vh) rotate(300deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="floating-random" id="floatRandom"></div>
+
+<div class="kotak-besar">
+  <!-- INTRO (gajelas) -->
+  <section class="layar aktif" id="introLayar">
+    <div class="headline-absurd">12 OKTOBER ? 2022 → ∞</div>
+    <h1><span>dhafir & intan</span><br>✧ kisah random tanpa arah ✧</h1>
+    <div style="margin: 20px 0; background: #19112b; border-radius: 44px; padding: 20px; border: 1px solid #cf9bd2;">
+      <p style="font-size: 17px; text-align: center; color: #cdc0ff;">✦ <strong>Dhafir</strong> : jalur? pasti on track (katanya) <br> ✦ <strong>Intan</strong> : gajelas, ngelantur, tapi lucu <br> ✦ keduanya : saling nggak nyambung tapi sayang</p>
+      <p style="margin-top: 16px; font-style: italic; text-align: center; color: #dab2ff;">〝 tiga tahun lebih penuh pertanyaan absurd 〞</p>
+    </div>
+    <div class="tombol-absurd" id="tombolMulai">⏤ mulai ke-random-an ⏤</div>
+  </section>
+
+  <!-- QUIZ LAYAR (pertanyaan random gajelas, tanpa foto) -->
+  <section class="layar" id="kuisLayar">
+    <div class="bar-atas">
+      <span id="babInfo">bab 0 / 10</span>
+      <span class="skor" id="skorTampil">💭 0/10</span>
+    </div>
+    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="kartu-ngawur">
+      <div class="penanda">
+        <span id="jenisTag">🌀 cerita</span>
+        <span id="pilotTag">✨ D&I</span>
+      </div>
+
+      <!-- TIDAK ADA FOTO SAMA SEKALI. hanya teks absurd -->
+      <div class="pertanyaan-besar" id="pertanyaanEl">?</div>
+      <div class="sub-gajelas">— pilih yang paling mendekati ngawur —</div>
+
+      <div class="pilihan" id="pilihanEl"></div>
+
+      <div class="feedback-gajelas" id="feedbackEl">💬 random fact : mereka suka debat rasa eskrim</div>
+
+      <button class="lanjut-btn" id="lanjutBtn" style="display: none;">lanjut ngawur ➔</button>
+    </div>
+  </section>
+
+  <!-- HASIL LAYAR -->
+  <section class="layar" id="hasilLayar">
+    <div class="hasil-emoji" id="emojiHasil">🤪</div>
+    <div class="skor-akhir" id="skorAkhir">0%</div>
+    <div class="pesan-absurd" id="pesanHasil">terima kasih sudah menjadi gajelas terbaik</div>
+    <div class="tombol-absurd" id="ulangBtn" style="margin-top: 25px;">⟲ ulang cerita random</div>
+  </section>
+</div>
+
+<script>
+  (function() {
+    // ----- PARTIKEL RANDOM (simbol-simbol absurd) -----
+    function buatPartikelRandom() {
+      const wadah = document.getElementById('floatRandom');
+      const simbol = ['✧', '✦', '💬', '❓', '❗', '🌀', '💭', '♾️', '🤷', '🙃', '😶‍🌫️', '💫', '⚡', '🗯️', '👾', '🌪️'];
+      for (let i = 0; i < 24; i++) {
+        let el = document.createElement('div');
+        el.className = 'float-item';
+        el.textContent = simbol[Math.floor(Math.random() * simbol.length)];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.animationDuration = (10 + Math.random() * 25) + 's';
+        el.style.animationDelay = Math.random() * 8 + 's';
+        el.style.fontSize = (15 + Math.random() * 30) + 'px';
+        el.style.opacity = 0.1 + Math.random() * 0.2;
+        wadah.appendChild(el);
+      }
+    }
+    buatPartikelRandom();
+
+    // ---------- DATA PERTANYAAN TANPA FOTO (SEMUA NULL) DAN RANDOM GAJELAS ----------
+    const questions = [
+      {
+        q: "Kalau lagi bingung milih makan, sikap Dhafir biasanya?",
+        opt: ["pilih yang tercepat", "pilih yang pernah dimakan", "pusing terus diam", "terserah Intan, tapi nanti protes"],
+        correct: 2,
+        pilot: "dhafir"
+      },
+      {
+        q: "Intan lagi 'mode gajelas' ditandai dengan?",
+        opt: ["nyanyi lagu random jam 2 pagi", "nanya 'kita kenapa ya?'", "tiba-tiba ngajak ke bulan", "semua benar (karena gajelas)"],
+        correct: 3,
+        pilot: "intan"
+      },
+      {
+        q: "Menurut Dhafir, 'on track' itu artinya?",
+        opt: ["sesuai rencana A", "ngikutin GPS hati", "jalan lurus aja", "ngga tahu, yang penting bareng Intan"],
+        correct: 3,
+        pilot: "dhafir"
+      },
+      {
+        q: "Intan kalau ditanya 'kita mau ke mana?' jawabnya?",
+        opt: ["ke mana aja", "terserah, jangan jauh2", "random aja, yg penting seru", "aku gatau, kamu tahu?"],
+        correct: 0,
+        pilot: "intan"
+      },
+      {
+        q: "Siapa yang lebih sering lupa tanggal penting?",
+        opt: ["saling lupa, tapi inget 12 Oktober", "Intan (sibuk gajelas)", "Dhafir (sibuk on track)", "mereka nggak peduli tanggal"],
+        correct: 2,
+        pilot: "both"
+      },
+      {
+        q: "Bahasa cinta Dhafir versi Intan?",
+        opt: ["quality time sambil ngatur jalur", "service act (benerin printer)", "kata-kata afirmasi random", "ngasih snack tiba-tiba"],
+        correct: 3,
+        pilot: "dhafir"
+      },
+      {
+        q: "Intan paling suka kalau Dhafir lagi...",
+        opt: ["ngikutin ide gilanya", "diem tapi perhatian", "ngomong 'terserah kamu'", "semuanya bener (soalnya dia sayang)"],
+        correct: 3,
+        pilot: "intan"
+      },
+      {
+        q: "Debat paling absurd yang pernah terjadi?",
+        opt: ["mie ayam vs bakso", "apakah bumi itu bundar atau gajelas", "kenapa ikan asin tawar?", "kucing tetangga galak karena apa"],
+        correct: 2,
+        pilot: "both"
+      },
+      {
+        q: "Dhafir dan Intan sama-sama setuju kalau...",
+        opt: ["kebahagiaan itu sederhana", "random itu seru", "ngga usah terlalu dipikirin", "semua benar (setuju semua)"],
+        correct: 3,
+        pilot: "both"
+      },
+      {
+        q: "Apa yang paling penting setelah 4 tahun?",
+        opt: ["tetap saling support", "tetap bisa bikin ketawa", "tetap nerima ke-random-an masing-masing", "semua benar 👍"],
+        correct: 3,
+        pilot: "both"
+      }
+    ];
+
+    // Elemen
+    const intro = document.getElementById('introLayar');
+    const kuis = document.getElementById('kuisLayar');
+    const hasil = document.getElementById('hasilLayar');
+    const mulaiBtn = document.getElementById('tombolMulai');
+    const ulangBtn = document.getElementById('ulangBtn');
+    const lanjut = document.getElementById('lanjutBtn');
+
+    const babInfo = document.getElementById('babInfo');
+    const skorTampil = document.getElementById('skorTampil');
+    const progressFill = document.getElementById('progressFill');
+    const jenisTag = document.getElementById('jenisTag');
+    const pilotTag = document.getElementById('pilotTag');
+    const pertanyaanEl = document.getElementById('pertanyaanEl');
+    const pilihanEl = document.getElementById('pilihanEl');
+    const feedbackEl = document.getElementById('feedbackEl');
+    const emojiHasil = document.getElementById('emojiHasil');
+    const skorAkhir = document.getElementById('skorAkhir');
+    const pesanHasil = document.getElementById('pesanHasil');
+
+    let indexSaatIni = 0;
+    let skor = 0;
+    let terkunci = false;
+
+    // utility
+    function tampilkanLayar(layar) {
+      [intro, kuis, hasil].forEach(l => l.classList.remove('aktif'));
+      layar.classList.add('aktif');
+    }
+
+    function perbaruiProgress() {
+      let persen = Math.round((skor / questions.length) * 100);
+      skorTampil.innerText = `💭 ${skor}/${questions.length}`;
+      progressFill.style.width = persen + '%';
+    }
+
+    function acakFeedbackAwal() {
+      let list = ['💬 dhafir: "apaan sih"', '🌀 intan: "hahaha gajelas"', '🤷 mereka: "lucu juga ya"', '❓ pertanyaan ga penting', '⚡ random abis'];
+      feedbackEl.innerText = list[Math.floor(Math.random() * list.length)];
+    }
+
+    function loadPertanyaan() {
+      terkunci = false;
+      lanjut.style.display = 'none';
+
+      let q = questions[indexSaatIni];
+      babInfo.innerText = `bab ${indexSaatIni+1} / ${questions.length}`;
+
+      // jenis tag tanpa foto (semua cerita)
+      jenisTag.innerText = '🌀 cerita absurd';
+      if (q.pilot === 'dhafir') {
+        pilotTag.innerText = '✧ DHAFIR mode on track';
+      } else if (q.pilot === 'intan') {
+        pilotTag.innerText = '✦ INTAN mode gajelas';
+      } else {
+        pilotTag.innerText = '✨ D&I · campur aduk';
+      }
+
+      pertanyaanEl.innerText = q.q;
+
+      // buat pilihan
+      pilihanEl.innerHTML = '';
+      q.opt.forEach((teks, idx) => {
+        let btn = document.createElement('div');
+        btn.classList.add('opsi');
+        btn.innerText = teks;
+        btn.addEventListener('click', () => pilihJawaban(idx, btn, q.correct, q.pilot));
+        pilihanEl.appendChild(btn);
+      });
+
+      acakFeedbackAwal();
+      perbaruiProgress();
+    }
+
+    function pilihJawaban(idx, elemen, benarIdx, pilot) {
+      if (terkunci) return;
+      terkunci = true;
+
+      let semuaOpsi = document.querySelectorAll('.opsi');
+      semuaOpsi.forEach(btn => btn.classList.add('disabled'));
+
+      // tandai benar
+      semuaOpsi.forEach((btn, i) => {
+        if (i === benarIdx) btn.classList.add('bener');
+      });
+
+      if (idx === benarIdx) {
+        skor++;
+        perbaruiProgress();
+
+        if (pilot === 'dhafir') feedbackEl.innerText = '✓ dhafir: "yah sesuai jalur (bener)"';
+        else if (pilot === 'intan') feedbackEl.innerText = '✦ intan: "HAHA IYA! gajelas bener"';
+        else feedbackEl.innerText = '💞 Dhafir: "Wadu"';
+        elemen.classList.add('bener');
+      } else {
+        elemen.classList.add('salah');
+        if (pilot === 'intan') feedbackEl.innerText = '🤷 intan: "salah? gapapa, yang penting hepi"';
+        else if (pilot === 'dhafir') feedbackEl.innerText = '😶 dhafir: "radar melenceng, tapi lucu"';
+        else feedbackEl.innerText = '🌀 yaah meleset dikit, santai';
+      }
+
+      lanjut.style.display = 'block';
+      lanjut.innerText = (indexSaatIni === questions.length - 1) ? '🤪 lihat hasil random' : '➡ lanjut ngawur';
+    }
+
+    function tampilkanHasil() {
+      let persen = Math.round((skor / questions.length) * 100);
+      skorAkhir.innerText = persen + '%';
+
+      if (persen >= 90) {
+        emojiHasil.innerText = '🏆🤯';
+        pesanHasil.innerText = 'kamu benar-benar paham kegajelan mereka! selamat, pasangan legenda.';
+      } else if (persen >= 70) {
+        emojiHasil.innerText = '✨💭';
+        pesanHasil.innerText = 'hampir sinkron dengan frekuensi absurd mereka.';
+      } else if (persen >= 50) {
+        emojiHasil.innerText = '🌀🤪';
+        pesanHasil.innerText = 'lumayan, kamu tahu beberapa hal random.';
+      } else {
+        emojiHasil.innerText = '🙃❓';
+        pesanHasil.innerText = 'skor kecil, tapi cinta mereka tetap besar dan gajelas.';
+      }
+
+      tampilkanLayar(hasil);
+    }
+
+    // reset
+    function restartKuis() {
+      indexSaatIni = 0;
+      skor = 0;
+      terkunci = false;
+      perbaruiProgress();
+      loadPertanyaan();
+      tampilkanLayar(kuis);
+    }
+
+    // event listeners
+    mulaiBtn.addEventListener('click', () => {
+      indexSaatIni = 0;
+      skor = 0;
+      loadPertanyaan();
+      tampilkanLayar(kuis);
+    });
+
+    ulangBtn.addEventListener('click', () => {
+      restartKuis();
+    });
+
+    lanjut.addEventListener('click', () => {
+      if (indexSaatIni < questions.length - 1) {
+        indexSaatIni++;
+        loadPertanyaan();
+      } else {
+        tampilkanHasil();
+      }
+    });
+
+    // inisialisasi pertama (intro)
+    // sudah aktif
+  })();
+</script>
+</body>
+</html>
